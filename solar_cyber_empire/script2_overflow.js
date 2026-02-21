@@ -1,0 +1,63 @@
+/**
+ * ប្រព័ន្ធវិភាគមហន្តរាយហៀរសតិ និងស្ថិរភាព Mercury Core
+ * គ្រប់គ្រងដោយ៖ លោកម្ចាស់ ហួកាំង ថារ៉ា
+ */
+
+function runOverflowTest() {
+    // ១. បញ្ជាសំឡេងអាលឺតកម្រិតបច្ចេកទេស
+    playSound('alert');
+
+    const terminal = document.getElementById('main-terminal');
+    const status = document.getElementById('status-tag');
+    const monitor = document.querySelector('.monarch-monitor');
+
+    // ២. ប្តូរស្ថានភាព UI ទៅជាពណ៌ទឹកក្រូចកម្តៅ (Thermal Orange)
+    status.innerText = "កំពុងវិភាគស្ថិរភាពទិន្នន័យសកល (Mercury Core)...";
+    status.style.background = "#ff8800";
+    status.style.color = "#000";
+    status.style.boxShadow = "0 0 20px #ff8800";
+
+    // ៣. បន្ថែម Visual Effect ទៅលើ Monitor (Heat Glow)
+    if (monitor) {
+        monitor.style.borderColor = "#ff8800";
+        monitor.style.boxShadow = "inset 0 0 60px rgba(255, 136, 0, 0.3), 0 0 30px rgba(255, 136, 0, 0.1)";
+    }
+
+    // ៤. បញ្ជីសារវិភាគយុទ្ធសាស្ត្រ
+    const messages = [
+        "> ព្រះរាជបញ្ជា៖ កំពុងពិនិត្យលំហូរទិន្នន័យនៅ Mercury Core Terminal...",
+        "> ស្ថានភាព៖ រកឃើញការកកស្ទះ Buffer ក្នុងប្រព័ន្ធបញ្ជូនល្បឿនពន្លឺ...",
+        "> កម្រិតកម្តៅស្នូល៖ ស្ថិតក្នុងរង្វង់សុវត្ថិភាព (Optimal Thermal Range)...",
+        "> ដំណោះស្រាយ៖ កំពុងបង្ហូរទិន្នន័យលើស (Cache) ទៅកាន់ Virtual Storage ភពផែនដី...",
+        "> ស្ថានភាពបច្ចុប្បន្ន៖ ប្រព័ន្ធត្រូវបានស្តារឡើងវិញ និងស្ថិតក្នុងស្ថិរភាព ១០០%",
+        "> បញ្ជា៖ រក្សានិរន្តរភាពបណ្តាញឌីជីថលអន្តរភពឱ្យបានជាដាច់ខាត!"
+    ];
+
+    // ៥. បង្ហាញទិន្នន័យលើ Terminal
+    terminal.innerHTML = ""; // លាងសម្អាត Terminal
+    
+    messages.forEach((msg, i) => {
+        setTimeout(() => {
+            const p = document.createElement('p');
+            
+            // ប្តូរពណ៌អត្ថបទតាមប្រភេទសារ
+            if (i === 1 || i === 3) {
+                p.style.color = "#ff8800"; // ពណ៌ទឹកក្រូចសម្រាប់បញ្ហាបច្ចេកទេស
+            } else if (i === 4 || i === 5) {
+                p.style.color = "#00ff88"; // ពណ៌បៃតងសម្រាប់លទ្ធផលជោគជ័យ
+                p.style.fontWeight = "bold";
+            } else {
+                p.style.color = "#ffd700"; // ពណ៌មាសសម្រាប់សារទូទៅ
+            }
+
+            p.innerHTML = msg;
+            terminal.appendChild(p);
+            
+            // Auto-scroll ទៅក្រោមបំផុត
+            terminal.scrollTop = terminal.scrollHeight;
+
+            // សំឡេងប៊ីបតិចៗពេលសារលោតឡើង
+            if (i % 2 === 0) playSound('click');
+        }, i * 750);
+    });
+}
