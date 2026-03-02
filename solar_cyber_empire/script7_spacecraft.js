@@ -27,24 +27,26 @@ function launchSpacecraft() {
         { name: "Banking System", url: "https://tharahuokaing.github.io/bank/" },
         { name: "ភោជនីយដ្ឋាន ហួ កាំង", url: "https://tharahuokaing.github.io/restaurant/" },
         { name: "T-Coin Central", url: "https://tharahuokaing.github.io/T-Coin/" },
+        { name: "SINGULARITY_ROADMAP", url: "https://tharahuokaing.github.io/singularity_roadmap/" },
         { name: "HuakangThara AI", url: "https://tharahuokaing.github.io/ai/" },
         { name: "Tech Researcher", url: "https://tharahuokaing.github.io/technology/" },
         { name: "Tech Researcher 1", url: "https://tharahuokaing.github.io/Modern_Technology_Research_1/" },
         { name: "Y2K38 Problem Center", url: "https://tharahuokaing.github.io/Y2K38_Problem/" },
         { name: "V2X System", url: "https://tharahuokaing.github.io/V2X/" },
-        { name: "V2X Research Lab", url: "https://tharahuokaing.github.io/V2X_Research/" }
+        { name: "V2X Research Lab", url: "https://tharahuokaing.github.io/V2X_Research/" },
+        { name: "Solar-System", url: "https://tharahuokaing.github.io/solar-system/" }
     ];
 
-    // ៣. ដំណើរការបង្ហោះយាន
+    // ៣. ដំណើរការបង្ហោះយានអវកាស
     terminal.innerHTML = `<p style="color: #ffd700">> [SYSTEM] កំពុងរៀបចំការតភ្ជាប់បណ្តាញអាណាចក្រ...</p>`;
     
     setTimeout(() => {
-        terminal.innerHTML += `<p style="color: #00f2ff">> [ENGINE] ថាមពលគ្រីស្តាល់ 100% | យានបក្សីចាំក្រុង បាញ់បង្ហោះ!</p>`;
+        terminal.innerHTML += `<p style="color: #00f2ff">> [ENGINE] ថាមពលគ្រីស្តាល់ 100% | យានអវកាសបក្សីចាំក្រុង បាញ់បង្ហោះ!</p>`;
         
         // បង្ហាញរូបភាពយាន
         if (hologramDisplay) {
             hologramDisplay.style.display = 'flex';
-            spacecraftHologram.src = 'baksey_cham_krong_spacecraft.jpg';
+            spacecraftHologram.src = 'solar_cyber_empire/baksey_cham_krong_spacecraft.jpg';
         }
         
         // ៤. បញ្ចាំង Link ទាំងអស់ចូលក្នុង Terminal ជាលក្ខណៈ Hologram Menu
@@ -65,3 +67,4 @@ function launchSpacecraft() {
         
     }, 1500);
 }
+
