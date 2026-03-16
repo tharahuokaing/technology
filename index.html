@@ -1,222 +1,242 @@
 <!DOCTYPE html>
 <html lang="km">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solar Cyber Empire | Huokaing Thara</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        /* ព្រះរាជរចនាបថសោភ័ណភាព (Imperial Aesthetics) */
-        body { 
-            margin: 0; 
-            overflow: hidden; 
-            background: #000; 
-            font-family: 'Courier New', 'Kantumruy Pro', monospace; 
-            color: #fff;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solar Cyber Empire | Huokaing Thara</title>
 
-        #matrix-canvas { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            z-index: -1; 
-            opacity: 0.2; 
-        }
+<style>
 
-        /* ព្រះរាជមណ្ឌលត្រួតពិនិត្យ (Monarch Monitor) */
-        .monarch-monitor {
-            position: relative;
-            z-index: 10;
-            width: 85%;
-            max-width: 1200px;
-            margin: 40px auto;
-            border: 2px solid #ffd700;
-            background: rgba(0, 10, 20, 0.95);
-            padding: 30px;
-            box-shadow: 0 0 50px rgba(255, 215, 0, 0.15), inset 0 0 20px rgba(0, 242, 255, 0.1);
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-        }
+body{
+    margin:0;
+    overflow:hidden;
+    background:#000;
+    font-family:'Courier New','Kantumruy Pro',monospace;
+    color:#fff;
+}
 
-        .dashboard-header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            color: #ffd700; 
-            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
-            padding-bottom: 15px;
-        }
+/* Matrix Canvas */
 
-        /* មណ្ឌលទិន្នន័យ (Imperial Terminal) */
-        #main-terminal {
-            height: 350px;
-            background: rgba(0, 5, 10, 0.9);
-            border: 1px solid #00f2ff;
-            margin-top: 20px;
-            padding: 20px;
-            overflow-y: auto;
-            font-size: 15px;
-            line-height: 1.6;
-            box-shadow: inset 0 0 15px rgba(0, 242, 255, 0.2);
-            scrollbar-width: thin;
-            scrollbar-color: #00f2ff #000;
-        }
+#matrix-canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-1;
+    opacity:0.2;
+}
 
-        /* ផ្ទាំងបញ្ជាព្រះរាជកិច្ច (Control Panel) */
-        .control-panel { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-            gap: 15px; 
-            margin-top: 25px; 
-        }
+/* Monarch Monitor */
 
-        .royal-btn {
-            background: rgba(0, 242, 255, 0.05);
-            border: 1px solid #00f2ff;
-            color: #00f2ff;
-            padding: 15px;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-align: center;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+.monarch-monitor{
+    position:relative;
+    z-index:10;
+    width:85%;
+    max-width:1200px;
+    margin:40px auto;
+    border:2px solid #ffd700;
+    background:rgba(0,10,20,0.95);
+    padding:30px;
+    box-shadow:0 0 50px rgba(255,215,0,0.15),
+    inset 0 0 20px rgba(0,242,255,0.1);
+    border-radius:15px;
+}
 
-        .royal-btn:hover { 
-            background: rgba(0, 242, 255, 0.25); 
-            box-shadow: 0 0 20px #00f2ff, inset 0 0 10px #ffffff;
-            transform: translateY(-3px);
-            color: #fff;
-        }
+/* Header */
 
-        #status-tag { 
-            padding: 8px 20px; 
-            border-radius: 4px; 
-            font-weight: bold; 
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: 0.5s;
-        }
+.dashboard-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:#ffd700;
+    border-bottom:1px solid rgba(255,215,0,0.3);
+    padding-bottom:15px;
+}
 
-        /* ប្រព័ន្ធរូបភាពហូឡូក្រាម (Hologram Display) */
-        #hologram-display {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            width: 300px;
-            border: 1px solid rgba(0, 242, 255, 0.5);
-            background: rgba(0, 242, 255, 0.05);
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            z-index: 100;
-            padding: 10px;
-            box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
-        }
+/* Terminal */
 
-        .hologram-scan-line {
-            width: 100%;
-            height: 2px;
-            background: rgba(0, 242, 255, 0.5);
-            position: absolute;
-            animation: scan 3s linear infinite;
-        }
+#main-terminal{
+    height:350px;
+    background:rgba(0,5,10,0.9);
+    border:1px solid #00f2ff;
+    margin-top:20px;
+    padding:20px;
+    overflow-y:auto;
+}
 
-        @keyframes scan {
-            0% { top: 0; }
-            100% { top: 100%; }
-        }
+/* Control panel */
 
-        @keyframes flicker {
-            0% { opacity: 0.9; } 50% { opacity: 1; } 100% { opacity: 0.8; }
-        }
-    </style>
+.control-panel{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:15px;
+    margin-top:25px;
+}
+
+/* Buttons */
+
+.royal-btn{
+    background:rgba(0,242,255,0.05);
+    border:1px solid #00f2ff;
+    color:#00f2ff;
+    padding:15px;
+    cursor:pointer;
+    font-weight:bold;
+    text-transform:uppercase;
+}
+
+.royal-btn:hover{
+    background:rgba(0,242,255,0.25);
+    box-shadow:0 0 20px #00f2ff;
+    transform:translateY(-3px);
+    color:#fff;
+}
+
+</style>
 </head>
+
 <body>
 
-    <canvas id="matrix-canvas"></canvas>
+<canvas id="matrix-canvas"></canvas>
 
-    <div class="monarch-monitor">
-        <div class="dashboard-header">
-            <div>
-                <h1 style="margin:0; font-size: 24px; letter-spacing: 3px;">SOLAR CYBER EMPIRE v2.0</h1>
-                <p style="margin:5px 0 0 0; color: #00f2ff; font-style: italic;">
-                    មហាអធិរាជបញ្ជាការដ្ឋានអវកាស៖ លោកម្ចាស់ ហួកាំង ថារ៉ា
-                </p>
-            </div>
-            <div style="text-align: right;">
-                <div id="live-clock" style="font-size: 28px; letter-spacing: 3px; font-weight: bold; color: #00f2ff;">00:00:00:00</div>
-                <div id="status-tag" style="background: #444; color: #fff;">SYSTEM LOCKED</div>
-            </div>
-        </div>
+<div class="monarch-monitor">
 
-        <div id="main-terminal">
-            <p style="color: #888; font-style: italic;">> ព្រះរាជប្រព័ន្ធកំពុងរង់ចាំការបញ្ជាក់ព្រះបរមអត្តសញ្ញាណ...</p>
-        </div>
+<div class="dashboard-header">
 
-        <div class="control-panel">
-            <button class="royal-btn" onclick="runPenTest()">[I] Cyber Pentest</button>
-            <button class="royal-btn" onclick="runOverflowTest()">[II] Mercury Stability</button>
-            <button class="royal-btn" onclick="checkGpsRollover()">[III] Saturn Shield</button>
-            <button class="royal-btn" onclick="calculateRisk()">[IV] Economy Analysis</button>
-            <button class="royal-btn" onclick="systemHardware()">[V] Mars Droid Army</button>
-            <button class="royal-btn" onclick="launchSpacecraft()">[VII] Launch Baksey Cham Krong</button>
-            <button class="royal-btn" onclick="runV2XMonitor()">[VIII] V2X Traffic Monitor</button>
-            
-            <button class="royal-btn" onclick="exportReport()" style="grid-column: span 2; color: #ffd700; border-color: #ffd700;">
-                [VI] Archive Imperial Report (ចារឹកព្រះរាជសារ)
-            </button>
-        </div>
-    </div>
+<div>
+<h1>SOLAR CYBER EMPIRE v2.0</h1>
+<p style="color:#00f2ff;">
+មហាអធិរាជបញ្ជាការដ្ឋានអវកាស៖ លោកម្ចាស់ ហួកាំង ថារ៉ា
+</p>
+</div>
 
-    <div id="hologram-display">
-        <div class="hologram-scan-line"></div>
-        <div style="font-size: 11px; color: #00f2ff; width: 100%; padding: 5px; text-align: center; letter-spacing: 1px;">
-            📡 LIVE SPACECRAFT FEED
-        </div>
-        <img id="spacecraft-hologram" src="solar_cyber_empire/baksey_cham_krong_spacecraft.jpg" alt="Hologram" style="width: 100%; height: auto; filter: hue-rotate(180deg) brightness(1.5);">
-        <div style="font-size: 11px; color: #ffd700; margin-top: 5px; font-weight: bold;">
-            BAKSEY CHAM KRONG : ACTIVE
-        </div>
-    </div>
+<div>
+<div id="live-clock">00:00:00</div>
+<div id="status-tag">SYSTEM LOCKED</div>
+</div>
 
-    <audio id="sound-scan" src="solar_cyber_empire/sound-scan.mp3"></audio>
-    <audio id="sound-alert" src="solar_cyber_empire/sound-alert.mp3"></audio>
-    <audio id="sound-click" src="solar_cyber_empire/sound-click.mp3"></audio>
-    
-    <audio id="bg-music" src="solar_cyber_empire/empire.mp3" loop></audio>
+</div>
 
-    <script src="solar_cyber_empire/script1_pentest.js"></script>
-    <script src="solar_cyber_empire/script2_overflow.js"></script>
-    <script src="solar_cyber_empire/script3_gps.js"></script>
-    <script src="solar_cyber_empire/script4_economy.js"></script>
-    <script src="solar_cyber_empire/script5_hardware.js"></script>
-    <script src="solar_cyber_empire/script7_spacecraft.js"></script>
-    <script src="solar_cyber_empire/script6_core.js"></script>
-    <script src="solar_cyber_empire/script8_v2x.js"></script>
-    <script src="solar_cyber_empire/ultra_secure_mode.js"></script>
-    <script src="solar_cyber_empire/ghost_protocol.js"></script>
-    
-        // បញ្ឆេះតន្ត្រីដោយស្វ័យប្រវត្តិក្រោយពេល Unlock (ហៅចេញពី script6_core.js)
-        function playImperialMusic() {
-            const music = document.getElementById('bg-music');
-            if (music) {
-                music.volume = 0; // ចាប់ផ្តើមពីសំឡេងតិចបំផុត
-                music.play().catch(e => console.warn("តន្ត្រីរង់ចាំការបញ្ជាក់ព្រះហស្ថ..."));
-                
-                // បន្ថែមសំឡេងបន្តិចម្តងៗ (Fade-in)
-                let vol = 0;
-                const fadeIn = setInterval(() => {
-                    if (vol < 0.4) {
-                        vol += 0.05;
-                        music.volume = vol;
-                    } else {
-                        clearInterval(fadeIn);
-                    }
-                }, 200);
-            }
-        }
-    </script>
+<div id="main-terminal">
+
+<p style="color:#888;">
+> ព្រះរាជប្រព័ន្ធកំពុងរង់ចាំការបញ្ជាក់ព្រះបរមអត្តសញ្ញាណ...
+</p>
+
+</div>
+
+<!-- CONTROL PANEL -->
+
+<div class="control-panel">
+
+<button class="royal-btn" onclick="runPenTest()">[I] Cyber Pentest</button>
+
+<button class="royal-btn" onclick="runOverflowTest()">[II] Mercury Stability</button>
+
+<button class="royal-btn" onclick="checkGpsRollover()">[III] Saturn Shield</button>
+
+<button class="royal-btn" onclick="calculateRisk()">[IV] Economy Analysis</button>
+
+<button class="royal-btn" onclick="systemHardware()">[V] Mars Droid Army</button>
+
+<button class="royal-btn" onclick="launchSpacecraft()">[VII] Launch Baksey Cham Krong</button>
+
+<button class="royal-btn" onclick="runV2XMonitor()">[VIII] V2X Traffic Monitor</button>
+
+<button class="royal-btn" onclick="playImperialMusic()">[IX] Play Imperial Music</button>
+
+<button class="royal-btn" onclick="stopImperialMusic()">[X] Stop Music</button>
+
+<button class="royal-btn"
+onclick="exportReport()"
+style="grid-column: span 2; color:#ffd700; border-color:#ffd700;">
+
+[VI] Archive Imperial Report
+
+</button>
+
+</div>
+
+</div>
+
+<!-- AUDIO -->
+
+<audio id="bg-music" src="solar_cyber_empire/empire.mp3" loop></audio>
+
+<audio id="sound-click" src="solar_cyber_empire/sound-click.mp3"></audio>
+
+<!-- SCRIPT -->
+
+<script>
+
+/* Imperial Music */
+
+function playImperialMusic(){
+
+const music=document.getElementById("bg-music")
+
+music.volume=0
+
+music.play().catch(()=>{console.log("User interaction required")})
+
+let vol=0
+
+const fade=setInterval(()=>{
+
+if(vol<0.4){
+
+vol+=0.05
+
+music.volume=vol
+
+}else{
+
+clearInterval(fade)
+
+}
+
+},200)
+
+}
+
+/* Stop Music */
+
+function stopImperialMusic(){
+
+const music=document.getElementById("bg-music")
+
+music.pause()
+
+}
+
+/* Click Sound */
+
+document.querySelectorAll(".royal-btn").forEach(btn=>{
+
+btn.addEventListener("click",()=>{
+
+const click=document.getElementById("sound-click")
+
+if(click) click.play()
+
+})
+
+})
+
+/* Clock */
+
+function updateClock(){
+
+const now=new Date()
+
+document.getElementById("live-clock").innerText=
+
+now.toLocaleTimeString()
+
+}
+
+setInterval(updateClock,1000)
+
+</script>
+
 </body>
 </html>
