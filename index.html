@@ -184,6 +184,8 @@
     <audio id="sound-scan" src="solar_cyber_empire/sound-scan.mp3"></audio>
     <audio id="sound-alert" src="solar_cyber_empire/sound-alert.mp3"></audio>
     <audio id="sound-click" src="solar_cyber_empire/sound-click.mp3"></audio>
+    
+    <audio id="bg-music" src="solar_cyber_empire/imperial-background.mp3" loop></audio>
 
     <script src="solar_cyber_empire/script1_pentest.js"></script>
     <script src="solar_cyber_empire/script2_overflow.js"></script>
@@ -193,5 +195,27 @@
     <script src="solar_cyber_empire/script7_spacecraft.js"></script>
     <script src="solar_cyber_empire/script6_core.js"></script>
     <script src="solar_cyber_empire/script8_v2x.js"></script>
+
+    <script>
+        // បញ្ឆេះតន្ត្រីដោយស្វ័យប្រវត្តិក្រោយពេល Unlock (ហៅចេញពី script6_core.js)
+        function playImperialMusic() {
+            const music = document.getElementById('bg-music');
+            if (music) {
+                music.volume = 0; // ចាប់ផ្តើមពីសំឡេងតិចបំផុត
+                music.play().catch(e => console.warn("តន្ត្រីរង់ចាំការបញ្ជាក់ព្រះហស្ថ..."));
+                
+                // បន្ថែមសំឡេងបន្តិចម្តងៗ (Fade-in)
+                let vol = 0;
+                const fadeIn = setInterval(() => {
+                    if (vol < 0.4) {
+                        vol += 0.05;
+                        music.volume = vol;
+                    } else {
+                        clearInterval(fadeIn);
+                    }
+                }, 200);
+            }
+        }
+    </script>
 </body>
 </html>
