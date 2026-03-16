@@ -6,60 +6,130 @@
     <title>Solar Cyber Empire | Huokaing Thara</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* បន្ថែម CSS បន្តិចបន្តួចដើម្បីធានាភាពស្រស់ស្អាតនៃ Layout */
-        body { margin: 0; overflow: hidden; background: #000; font-family: 'Courier New', Courier, monospace; }
-        #matrix-canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.15; }
+        /* ព្រះរាជរចនាបថសោភ័ណភាព (Imperial Aesthetics) */
+        body { 
+            margin: 0; 
+            overflow: hidden; 
+            background: #000; 
+            font-family: 'Courier New', 'Kantumruy Pro', monospace; 
+            color: #fff;
+        }
+
+        #matrix-canvas { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            z-index: -1; 
+            opacity: 0.2; 
+        }
+
+        /* ព្រះរាជមណ្ឌលត្រួតពិនិត្យ (Monarch Monitor) */
         .monarch-monitor {
             position: relative;
             z-index: 10;
-            width: 80%;
-            margin: 20px auto;
+            width: 85%;
+            max-width: 1200px;
+            margin: 40px auto;
             border: 2px solid #ffd700;
-            background: rgba(0, 10, 20, 0.9);
-            padding: 20px;
-            box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
-            border-radius: 10px;
+            background: rgba(0, 10, 20, 0.95);
+            padding: 30px;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.15), inset 0 0 20px rgba(0, 242, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
         }
-        .dashboard-header { display: flex; justify-content: space-between; align-items: center; color: #ffd700; }
+
+        .dashboard-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            color: #ffd700; 
+            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+            padding-bottom: 15px;
+        }
+
+        /* មណ្ឌលទិន្នន័យ (Imperial Terminal) */
         #main-terminal {
-            height: 300px;
-            background: rgba(0, 0, 0, 0.8);
+            height: 350px;
+            background: rgba(0, 5, 10, 0.9);
             border: 1px solid #00f2ff;
-            margin-top: 15px;
-            padding: 15px;
+            margin-top: 20px;
+            padding: 20px;
             overflow-y: auto;
-            font-size: 14px;
+            font-size: 15px;
+            line-height: 1.6;
+            box-shadow: inset 0 0 15px rgba(0, 242, 255, 0.2);
+            scrollbar-width: thin;
+            scrollbar-color: #00f2ff #000;
         }
-        .control-panel { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+
+        /* ផ្ទាំងបញ្ជាព្រះរាជកិច្ច (Control Panel) */
+        .control-panel { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            gap: 15px; 
+            margin-top: 25px; 
+        }
+
         .royal-btn {
-            background: rgba(0, 242, 255, 0.1);
+            background: rgba(0, 242, 255, 0.05);
             border: 1px solid #00f2ff;
             color: #00f2ff;
-            padding: 12px;
+            padding: 15px;
             cursor: pointer;
-            transition: 0.3s;
-            text-align: left;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        .royal-btn:hover { background: rgba(0, 242, 255, 0.3); box-shadow: 0 0 15px #00f2ff; }
-        #status-tag { padding: 5px 15px; border-radius: 5px; font-weight: bold; }
-        
-        /* Hologram Styles */
+
+        .royal-btn:hover { 
+            background: rgba(0, 242, 255, 0.25); 
+            box-shadow: 0 0 20px #00f2ff, inset 0 0 10px #ffffff;
+            transform: translateY(-3px);
+            color: #fff;
+        }
+
+        #status-tag { 
+            padding: 8px 20px; 
+            border-radius: 4px; 
+            font-weight: bold; 
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.5s;
+        }
+
+        /* ប្រព័ន្ធរូបភាពហូឡូក្រាម (Hologram Display) */
         #hologram-display {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 280px;
-            height: 180px;
-            border: 1px solid #00f2ff;
+            bottom: 40px;
+            right: 40px;
+            width: 300px;
+            border: 1px solid rgba(0, 242, 255, 0.5);
             background: rgba(0, 242, 255, 0.05);
             display: none;
             flex-direction: column;
             align-items: center;
             z-index: 100;
-            animation: flicker 2s infinite;
+            padding: 10px;
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
         }
+
+        .hologram-scan-line {
+            width: 100%;
+            height: 2px;
+            background: rgba(0, 242, 255, 0.5);
+            position: absolute;
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+
         @keyframes flicker {
-            0% { opacity: 0.8; } 50% { opacity: 1; } 100% { opacity: 0.8; }
+            0% { opacity: 0.9; } 50% { opacity: 1; } 100% { opacity: 0.8; }
         }
     </style>
 </head>
@@ -70,17 +140,19 @@
     <div class="monarch-monitor">
         <div class="dashboard-header">
             <div>
-                <h1 style="margin:0; font-size: 20px;">SOLAR CYBER EMPIRE v2.0</h1>
-                <p style="margin:0; color: #00f2ff;">Space Force Commander:  Huokaing Thara</p>
+                <h1 style="margin:0; font-size: 24px; letter-spacing: 3px;">SOLAR CYBER EMPIRE v2.0</h1>
+                <p style="margin:5px 0 0 0; color: #00f2ff; font-style: italic;">
+                    មហាអធិរាជបញ្ជាការដ្ឋានអវកាស៖ លោកម្ចាស់ ហួកាំង ថារ៉ា
+                </p>
             </div>
             <div style="text-align: right;">
-                <div id="live-clock" style="font-size: 24px; letter-spacing: 2px;">00:00:00:00</div>
-                <div id="status-tag">SYSTEM LOCKED</div>
+                <div id="live-clock" style="font-size: 28px; letter-spacing: 3px; font-weight: bold; color: #00f2ff;">00:00:00:00</div>
+                <div id="status-tag" style="background: #444; color: #fff;">SYSTEM LOCKED</div>
             </div>
         </div>
 
         <div id="main-terminal">
-            <p style="color: #666;">> ប្រព័ន្ធកំពុងរង់ចាំការបញ្ជាក់អត្តសញ្ញាណ...</p>
+            <p style="color: #888; font-style: italic;">> ព្រះរាជប្រព័ន្ធកំពុងរង់ចាំការបញ្ជាក់ព្រះបរមអត្តសញ្ញាណ...</p>
         </div>
 
         <div class="control-panel">
@@ -90,23 +162,28 @@
             <button class="royal-btn" onclick="calculateRisk()">[IV] Economy Analysis</button>
             <button class="royal-btn" onclick="systemHardware()">[V] Mars Droid Army</button>
             <button class="royal-btn" onclick="launchSpacecraft()">[VII] Launch Baksey Cham Krong</button>
-	    <button class="royal-btn" onclick="runV2XMonitor()">[VIII] V2X Traffic Monitor</button>
-            <button class="royal-btn" onclick="exportReport()" style="grid-column: span 3; color: #ffd700; border-color: #ffd700;">
-                [VI] Archive Imperial Report (Export)
+            <button class="royal-btn" onclick="runV2XMonitor()">[VIII] V2X Traffic Monitor</button>
+            
+            <button class="royal-btn" onclick="exportReport()" style="grid-column: span 2; color: #ffd700; border-color: #ffd700;">
+                [VI] Archive Imperial Report (ចារឹកព្រះរាជសារ)
             </button>
         </div>
-	
     </div>
 
     <div id="hologram-display">
-        <div style="font-size: 10px; color: #00f2ff; width: 100%; padding: 5px;">ANCIENT SPACECRAFT FEED</div>
-        <img id="spacecraft-hologram" src="solar_cyber_empire/baksey_cham_krong_spacecraft.jpg" alt="Hologram" style="width: 90%; height: auto; filter: cyan;">
-        <div style="font-size: 10px; color: #ffd700; margin-top: 5px;">BAKSEY CHAM KRONG ACTIVE</div>
+        <div class="hologram-scan-line"></div>
+        <div style="font-size: 11px; color: #00f2ff; width: 100%; padding: 5px; text-align: center; letter-spacing: 1px;">
+            📡 LIVE SPACECRAFT FEED
+        </div>
+        <img id="spacecraft-hologram" src="solar_cyber_empire/baksey_cham_krong_spacecraft.jpg" alt="Hologram" style="width: 100%; height: auto; filter: hue-rotate(180deg) brightness(1.5);">
+        <div style="font-size: 11px; color: #ffd700; margin-top: 5px; font-weight: bold;">
+            BAKSEY CHAM KRONG : ACTIVE
+        </div>
     </div>
-	
-	<audio id="sound-scan" src="solar_cyber_empire/sound-scan.mp3"></audio>
-	<audio id="sound-alert" src="solar_cyber_empire/sound-alert.mp3"></audio>
-	<audio id="sound-click" src="solar_cyber_empire/sound-click.mp3"></audio>
+    
+    <audio id="sound-scan" src="solar_cyber_empire/sound-scan.mp3"></audio>
+    <audio id="sound-alert" src="solar_cyber_empire/sound-alert.mp3"></audio>
+    <audio id="sound-click" src="solar_cyber_empire/sound-click.mp3"></audio>
 
     <script src="solar_cyber_empire/script1_pentest.js"></script>
     <script src="solar_cyber_empire/script2_overflow.js"></script>
@@ -116,14 +193,5 @@
     <script src="solar_cyber_empire/script7_spacecraft.js"></script>
     <script src="solar_cyber_empire/script6_core.js"></script>
     <script src="solar_cyber_empire/script8_v2x.js"></script>
-    <script src="solar_cyber_empire/ultra_secure_mode.js"></script> </body>
-	<script src="solar_cyber_empire/ghost_protocol"></script> </body>
+</body>
 </html>
-
-
-
-
-
-
-
-
