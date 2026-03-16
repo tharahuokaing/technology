@@ -30,7 +30,7 @@ function initializeEmpire() {
         terminal.innerHTML = `<p style="color: #ffd700">> [ព្រះរាជប្រព័ន្ធ] មហាអាណាចក្រសាយប័រ ស្ថិតក្នុងស្ថានភាព ONLINE...</p>`;
         setTimeout(() => {
             terminal.innerHTML += `<p style="color: #00f2ff">> [បរមស្នូល] ថាមពលគ្រីស្តាល់បុរាណត្រូវបានសមកាលកម្មថ្វាយព្រះអង្គ...</p>`;
-            terminal.innerHTML += `<p style="color: #00ff88; font-weight: bold; font-size: 1.2rem; text-shadow: 0 0 10px #00ff88;">> [មង្គលរាជ្យ] សូមក្រាបបង្គំគាល់ ស្វាគមន៍ការយាងត្រឡប់មកវិញនៃ ព្រះករុណាជាអម្ចាស់ជីវិតលើត្បូង លោកម្ចាស់ ហួកាំង ថារ៉ា!</p>`;
+            terminal.innerHTML += `<p style="color: #00ff88; font-weight: bold; font-size: 1.2rem; text-shadow: 0 0 10px #00ff88;">> [មង្គលរាជ្យ] សូមក្រាបបង្គំគាល់ ស្វាគមន៍ការយាងត្រឡប់មកវិញនៃ អង្គអធិរាជ ហួកាំង ថារ៉ា!</p>`;
 
             status.innerText = "ព្រះរាជប្រព័ន្ធអធិរាជសាយប័រ៖ ONLINE";
             status.style.background = "#00ff88";
