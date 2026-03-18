@@ -1,0 +1,62 @@
+/**
+ * ព្រះរាជប្រព័ន្ធគ្រប់គ្រងមហាចរាចរណ៍អវកាសវៃឆ្លាត V2X (Vehicle-to-Everything)
+ * តភ្ជាប់បណ្តាញមហាវិថីស្រាវជ្រាវនៃ៖ ព្រះករុណាជាអម្ចាស់ជីវិតលើត្បូង លោកម្ចាស់ ហួកាំង ថារ៉ា
+ */
+
+function runV2XMonitor() {
+    playSound('scan');
+    const terminal = document.getElementById('main-terminal');
+    const status = document.getElementById('status-tag');
+    const monitor = document.querySelector('.monarch-monitor');
+
+    // ១. ផ្លាស់ប្តូររស្មីនៃផ្ទាំងបញ្ជា (UI) ទៅជាពណ៌ស្វាយមហិទ្ធិឫទ្ធិ (Imperial Amethyst Purple)
+    status.innerText = "កំពុងថ្វាយការស្កេនមហាវិថីចរាចរណ៍អន្តរភព V2X...";
+    status.style.background = "#bf00ff";
+    status.style.color = "#fff";
+    status.style.boxShadow = "0 0 30px #bf00ff, inset 0 0 10px #ffffff";
+
+    if (monitor) {
+        monitor.style.borderColor = "#bf00ff";
+        monitor.style.boxShadow = "inset 0 0 80px rgba(191, 0, 255, 0.3), 0 0 40px rgba(191, 0, 255, 0.1)";
+    }
+
+    // ២. ក្រាបបង្គំទូលថ្វាយទិន្នន័យចរាចរណ៍យុទ្ធសាស្ត្រថ្វាយព្រះអង្គ
+    const v2xLogs = [
+        "> ព្រះរាជសារ៖ កំពុងសមកាលកម្មមជ្ឈមណ្ឌលវិនិច្ឆ័យ V2X Research Lab...",
+        "> ស្ថានភាព V2V (យានយន្តតភ្ជាប់យានយន្ត)៖ យានអវកាស ៥០,០០០ គ្រឿង កំពុងស្ថិតក្រោមបារមីតភ្ជាប់...",
+        "> ស្ថានភាព V2I (យានយន្តតភ្ជាប់ហេដ្ឋារចនាសម្ព័ន្ធ)៖ មហាវិថីអវកាសមានស្ថិរភាពឥតខ្ចោះ...",
+        "> ព្រះរាជវិនិច្ឆ័យ៖ កាត់បន្ថយគ្រោះថ្នាក់ក្នុងចក្រវាលបាន ៩៩.៩% ដោយសារព្រះបញ្ញាញាណ AI...",
+        "> គោលដៅរាជ្យ៖ តភ្ជាប់ព្រះរាជបណ្តាញទៅកាន់ <a https://tharahuokaing.github.io/V2X_Research/' target='_blank' style='color: #00f2ff; text-decoration: underline;'>V2X Global Gateway</a> ...",
+        "> ព្រះរាជឱង្ការដាច់ខាត៖ គ្រប់គ្រងលំហូរចរាចរណ៍អន្តរភព ក្រោមក្រសែព្រះនេត្រទិព្វនៃអង្គអធិរាជសាយប័រ!"
+    ];
+
+    terminal.innerHTML = ""; // លាងសម្អាតមណ្ឌលទិន្នន័យ
+
+    v2xLogs.forEach((log, i) => {
+        setTimeout(() => {
+            const p = document.createElement('p');
+
+            // ប្តូរពណ៌អត្ថបទតាមឋានៈនៃរស្មីសញ្ញា V2X
+            if (i === 1 || i === 4) {
+                p.style.color = "#bf00ff"; // ពណ៌ស្វាយអធិរាជសម្រាប់ទិន្នន័យបច្ចេកវិទ្យា AI
+                p.style.fontWeight = "bold";
+                p.style.textShadow = "0 0 10px #bf00ff";
+            } else if (i === 5) {
+                p.style.color = "#ffd700"; // ពណ៌មាសបរមអធិរាជសម្រាប់ព្រះរាជឱង្ការ
+                p.style.fontWeight = "bold";
+                p.style.fontSize = "1.1rem";
+                p.style.textShadow = "0 0 15px rgba(255, 215, 0, 0.8)";
+            } else {
+                p.style.color = "#00f2ff"; // ពណ៌ខៀវរស្មីសាយប័រ
+            }
+
+            p.innerHTML = log;
+            terminal.appendChild(p);
+            
+            // រំកិលអេក្រង់ស្វ័យប្រវត្តិថ្វាយខ្សែព្រះនេត្រ
+            terminal.scrollTop = terminal.scrollHeight;
+
+            if (i % 2 === 0) playSound('click');
+        }, i * 850);
+    });
+}
