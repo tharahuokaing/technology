@@ -8,7 +8,7 @@ function unlockSystem() {
     const accessCode = prompt("🔐 [ព្រះរាជសញ្ញាអាសន្ន] សូមបញ្ជាក់ព្រះបរមអត្តសញ្ញាណនៃអង្គអធិរាជសាយប័រ (Access Code):");
 
      // ព្រះរាជលក្ខខណ្ឌសម្ងាត់៖ ត្រូវវាយឈ្មោះ "huokaingthara"
-    const validAccessCodes = ["huokaingthara", "chornrothanak", "svaymetrey", "longlain"];
+    ["huokaingthara", "chornrothanak", "svaymetrey", "longlain", "phaychanrothana", "chumchanrothanak"];
     if (accessCode && validAccessCodes.includes(accessCode.toLowerCase())) {
         playSound('scan');
         document.body.style.filter = "none"; // បើកពន្លឺព្រះរាជមណ្ឌល
